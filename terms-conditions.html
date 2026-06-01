@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions — FarmGro</title>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --border: #2a2d3a;
+            --text: #e4e4e7;
+            --text-secondary: #9ca3af;
+            --accent: #22c55e;
+            --accent-dim: rgba(34, 197, 94, 0.1);
+            --warning: #f59e0b;
+            --warning-dim: rgba(245, 158, 11, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        header {
+            text-align: center;
+            padding: 48px 24px;
+            background: linear-gradient(135deg, #0d4a2a 0%, #0f1117 100%);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 48px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 28px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        ul, ol {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        li { margin-bottom: 6px; }
+
+        strong { color: var(--text); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 24px;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--surface);
+            color: var(--accent);
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+        }
+
+        td {
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:nth-child(even) td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .callout {
+            background: var(--accent-dim);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        .callout.warning {
+            background: var(--warning-dim);
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+
+        .callout strong {
+            color: var(--accent);
+        }
+
+        .callout.warning strong {
+            color: var(--warning);
+        }
+
+        code {
+            background: var(--surface);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.88rem;
+            color: var(--accent);
+        }
+
+        .permission-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 12px 0;
+        }
+
+        .permission-card h4 {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .permission-card .badge {
+            display: inline-block;
+            background: var(--accent-dim);
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+        }
+
+        .permission-card p {
+            font-size: 0.88rem;
+            margin-bottom: 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .back-nav {
+            max-width: 820px;
+            margin: 24px auto 0;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+            text-decoration: none;
+            transform: translateX(-4px);
+        }
+
+        .back-link svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 24px 16px 60px; }
+            header { padding: 32px 16px; }
+            header h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.2rem; }
+            table { font-size: 0.8rem; }
+            th, td { padding: 8px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="back-nav">
+    <a href="index.html" class="back-link">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Back to Portal
+    </a>
+</div>
+
+<header>
+    <h1>🌿 FarmGro</h1>
+    <p>Terms & Conditions · Last Updated: June 1, 2026</p>
+</header>
+
+<div class="container">
+
+    <h2>1. Agreement to Terms</h2>
+    <p>Welcome to FarmGro. These Terms and Conditions ("Terms") govern your use of the <strong>FarmGro</strong> mobile application (the "App") operated by Wormhole Technologies ("we," "us," or "our").</p>
+    <p>By downloading, registering, or accessing the App, you agree to comply with and be bound by these Terms. If you do not agree to these Terms, you must not use or access the App.</p>
+
+    <h2>2. Eligibility & Registration</h2>
+    <p>The App is a specialized business tool designed exclusively for farmers, VCP (Village Collection Point) operators, and logistics partners. By registering, you warrant that:</p>
+    <ul>
+        <li>You are at least 18 years of age and legally competent to enter into binding agreements.</li>
+        <li>You are a legitimate agricultural producer or authorized representative.</li>
+        <li>All information provided during phone registration and profile setup (Name, UPI ID, Location, District) is accurate and complete.</li>
+    </ul>
+    
+    <div class="callout">
+        <strong>Important:</strong> You are solely responsible for maintaining the confidentiality of your account credentials (including OTP codes) and for all activities that occur under your registered phone number.
+    </div>
+
+    <h2>3. Produce Listings & Pricing</h2>
+    <p>Farmers can register produce details and declare current stock within the App. By doing so, you agree to the following conditions:</p>
+    <ol>
+        <li><strong>Quality Control:</strong> All listed produce must meet standard quality guidelines. Substandard, rotten, or mislabeled crops are subject to rejection during physical verification at the VCP.</li>
+        <li><strong>Mandi-Linked Pricing:</strong> The App displays regional Mandi market price trends as a benchmark. You maintain control over your final declared price, but it must be within reasonable marketplace caps.</li>
+        <li><strong>Inventory Accuracy:</strong> You agree to keep crop stock levels updated. Failures to supply produce that has been committed online may result in account review or temporary suspension.</li>
+    </ol>
+
+    <h2>4. VCP Drop-Off & Location Verification</h2>
+    <p>To successfully fulfill buyer orders, farmers are required to drop off produce at designated local Village Collection Points (VCPs). By using this feature, you acknowledge that:</p>
+    <ul>
+        <li><strong>GPS Verification:</strong> The App uses the device's location services to physically verify that you are within range of the designated VCP before allowing drop-off confirmation.</li>
+        <li><strong>Verification Process:</strong> The VCP operator physically validates your produce weight and updates the status within the system to finalize drop-off verification.</li>
+        <li><strong>Rejection Rules:</strong> VCP operators have the authority to inspect and reject crops that fail quality checks or are damaged. All final quantities recorded at the VCP serve as the single source of truth for final payment.</li>
+    </ul>
+
+    <h2>5. Payments & Settlements</h2>
+    <p>All produce sold through the App is paid out through modern digital settlement channels:</p>
+    <table>
+        <tr><th>Payout Method</th><th>Verification Process</th><th>Settlement Timeline</th></tr>
+        <tr><td><strong>UPI Transfer</strong></td><td>Farmer's verified UPI ID (Bank linked)</td><td>Processed within 24-48 business hours of VCP collection confirmation</td></tr>
+        <tr><td><strong>Direct Bank Transfer</strong></td><td>Provided Account & IFSC details</td><td>Subject to standard banking clearance windows</td></tr>
+    </table>
+    <div class="callout warning">
+        <strong>Accuracy of Bank Info:</strong> We are not responsible for lost payments resulting from incorrect UPI IDs or bank details provided in your Profile Settings.
+    </div>
+
+    <h2>6. System Permissions & Device Usage</h2>
+    <p>For the App to operate correctly, certain Android system permissions must be granted. Revoking these permissions in settings will restrict the features of the App:</p>
+
+    <div class="permission-card">
+        <span class="badge">LOCATION</span>
+        <h4>📍 ACCESS_FINE_LOCATION</h4>
+        <p>Required to verify that VCP drop-offs are being completed at official, authorized geographic coordinate zones.</p>
+    </div>
+
+    <div class="permission-card">
+        <span class="badge">CAMERA</span>
+        <h4>📷 CAMERA</h4>
+        <p>Required strictly for capturing and updating your profile picture during onboarding and profile setup.</p>
+    </div>
+
+    <div class="permission-card">
+        <span class="badge">NOTIFICATIONS</span>
+        <h4>🔔 POST_NOTIFICATIONS</h4>
+        <p>Required for real-time alerts on new customer orders, payment status, and mandi updates.</p>
+    </div>
+
+    <h2>7. User Conduct & Prohibited Activities</h2>
+    <p>You agree not to engage in any of the following prohibited behaviors:</p>
+    <ul>
+        <li>Submitting false, misleading, or fraudulent produce listings.</li>
+        <li>Bypassing device security scanning layers or injecting fake GPS locations.</li>
+        <li>Tampering with the app package or reverse-engineering the native security components.</li>
+        <li>Colluding with VCP operators to declare incorrect crop weights or grades.</li>
+        <li>Using any automated scripts or bots to extract mandi pricing or catalog data.</li>
+    </ul>
+
+    <h2>8. Limitation of Liability & Disclaimers</h2>
+    <p>Wormhole Technologies provides the App "as is" and "as available" without warranties of any kind:</p>
+    <ul>
+        <li><strong>Market Pricing:</strong> Mandi price trends displayed are benchmarks fetched from public/private agricultural APIs. We are not liable for transaction losses resulting from market price fluctuations.</li>
+        <li><strong>Network Reliability:</strong> We are not responsible for order delivery failures caused by cellular signal drops in remote farming zones.</li>
+        <li><strong>Indirect Damage:</strong> In no event shall we be liable for any direct, indirect, incidental, or consequential damages arising from your use of the agricultural marketplace features.</li>
+    </ul>
+
+    <h2>9. Dispute Resolution & Account Deletion</h2>
+    <ul>
+        <li><strong>Disputes:</strong> Any dispute regarding crop quality, weight discrepancies, or logistics at the VCP must be registered through the Support section of the App.</li>
+        <li><strong>Account Deletion:</strong> You can delete your account and withdraw your consent at any time via the Settings panel in the App, or by contacting our web-based removal desk at <a href="https://wormhole.co.in/account-deletion/" target="_blank">wormhole.co.in/account-deletion</a>. All personal records are permanently erased within 30 days.</li>
+    </ul>
+
+    <h2>10. Governing Law</h2>
+    <p>These Terms are governed by and construed in accordance with the laws of India, including the IT Act 2000 and the DPDP Act 2023. Any legal proceedings or disputes arising out of these Terms shall be subject to the exclusive jurisdiction of the courts located in <strong>Kurnool, Andhra Pradesh, India</strong>.</p>
+
+    <h2>11. Contact Us</h2>
+    <p>For any queries or assistance regarding these Terms, please contact us at:</p>
+    <p><strong>Email:</strong> support@wormhole.co.in<br>
+    <strong>Address:</strong> Ganesh Nagar 2, Kurnool, Andhra Pradesh, 518002, India</p>
+
+</div>
+
+<footer>
+    <p>© 2026 Wormhole Technologies. All rights reserved.</p>
+    <p>Compliant with Google Play Store policies and Indian consumer protection guidelines for agricultural platforms.</p>
+</footer>
+
+</body>
+</html>

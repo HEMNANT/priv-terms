@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmGro — Legal Portal & Support</title>
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0d13;
+            --bg-glow: #0d1e15;
+            --surface: #131622;
+            --surface-hover: #1a1e2e;
+            --border: #222638;
+            --border-hover: #2e354f;
+            --text: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent: #22c55e;
+            --accent-glow: rgba(34, 197, 94, 0.15);
+            --accent-hover: #4ade80;
+            --card-glow: rgba(34, 197, 94, 0.03);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Glowing Background Elements */
+        .ambient-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--bg-glow) 0%, rgba(11,13,19,0) 70%);
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(80px);
+            animation: pulse 8s infinite alternate;
+        }
+
+        .ambient-glow-bottom {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.05) 0%, rgba(11,13,19,0) 70%);
+            bottom: -100px;
+            right: -100px;
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(60px);
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; transform: translateX(-50%) scale(0.9); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 24px 100px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Style */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #166534 0%, #15803d 50%, #22c55e 100%);
+            border-radius: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3), inset 0 2px 4px rgba(255,255,255,0.2);
+            font-size: 2.5rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #ffffff 40%, #a7f3d0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        /* Interactive Grid Cards */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px 30px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* Card Ambient Background Glow */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(800px circle at var(--x, 0px) var(--y, 0px), rgba(34, 197, 94, 0.08), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-hover);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(34, 197, 94, 0.05);
+            background-color: var(--surface-hover);
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background-color: var(--accent-glow);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card:hover .card-icon {
+            background-color: var(--accent);
+            color: #0b0d13;
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+            color: #ffffff;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .card-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: gap 0.3s ease;
+            margin-top: auto;
+        }
+
+        .card:hover .card-action {
+            color: var(--accent-hover);
+            gap: 12px;
+        }
+
+        .card-action svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-action svg {
+            transform: translateX(2px);
+        }
+
+        /* App Metadata Section */
+        .app-meta-box {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-meta-box::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: var(--accent-glow);
+            filter: blur(40px);
+            border-radius: 50%;
+            top: -50px;
+            right: -50px;
+            z-index: 0;
+        }
+
+        .app-meta-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .app-info h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .app-info p {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            margin-bottom: 20px;
+        }
+
+        .compliance-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .badge {
+            background-color: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 100px;
+        }
+
+        .badge.accent {
+            border-color: rgba(34, 197, 94, 0.3);
+            color: var(--accent);
+            background-color: rgba(34, 197, 94, 0.05);
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.01);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .contact-card h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .contact-item {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .contact-item strong {
+            color: var(--text);
+        }
+
+        .contact-item a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 40px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        footer p {
+            margin-bottom: 8px;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 16px 60px;
+            }
+            header h1 {
+                font-size: 2.2rem;
+            }
+            .app-meta-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .app-meta-box {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+    <div class="ambient-glow-bottom"></div>
+
+    <div class="container">
+        
+        <header>
+            <div class="logo-container">🌿</div>
+            <h1>FarmGro</h1>
+            <p>Empowering farmers, connecting tables. Manage listings, monitor mandi trends, and organize village collection point drop-offs smoothly.</p>
+        </header>
+
+        <main>
+            <section class="grid-cards">
+                <!-- Privacy Policy Card -->
+                <a href="privacy-policy.html" class="card" id="card-privacy">
+                    <div class="card-icon">🔒</div>
+                    <div class="card-content">
+                        <h2>Privacy Policy</h2>
+                        <p>Learn how we securely handle, encrypt, and respect your personal profile, GPS locations, and UPI data under strict Firebase security protocols and the DPDP Act 2023.</p>
+                        <div class="card-action">
+                            <span>Read Privacy Policy</span>
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Terms & Conditions Card -->
+                <a href="terms-conditions.html" class="card" id="card-terms">
+                    <div class="card-icon">📋</div>
+                    <div class="card-content">
+                        <h2>Terms & Conditions</h2>
+                        <p>Review the comprehensive guidelines regarding crop quality validation, VCP GPS-based drop-offs, UPI settlement timelines, and user behavior codes.</p>
+                        <div class="card-action">
+                            <span>View Terms & Conditions</span>
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Account Deletion Card -->
+                <a href="account-deletion.html" class="card" id="card-deletion">
+                    <div class="card-icon">🗑️</div>
+                    <div class="card-content">
+                        <h2>Account Deletion</h2>
+                        <p>Need to remove your account? Submit a secure digital request online to permanently delete all personal profiles, credentials, and records within 30 days.</p>
+                        <div class="card-action">
+                            <span>Request Account Deletion</span>
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </a>
+            </section>
+
+            <!-- App Meta Box -->
+            <section class="app-meta-box">
+                <div class="app-meta-content">
+                    <div class="app-info">
+                        <h3>App Safety & Compliance</h3>
+                        <p>FarmGro is dedicated to total transparency and security. The app is fully vetted for deployment on the Google Play Store, adhering to the latest Developer Policy guidelines.</p>
+                        
+                        <div class="compliance-badges">
+                            <span class="badge accent">✓ Google Play Compliant</span>
+                            <span class="badge">DPDP Act 2023</span>
+                            <span class="badge">IT Act 2000</span>
+                            <span class="badge accent">Secure AES-256</span>
+                            <span class="badge">Firebase Verified</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <h4>Support & Desk</h4>
+                        <div class="contact-item">
+                            <span>📧</span>
+                            <div>
+                                <strong>Email:</strong><br>
+                                <a href="mailto:support@wormhole.co.in">support@wormhole.co.in</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span>📍</span>
+                            <div>
+                                <strong>Office Address:</strong><br>
+                                Ganesh Nagar 2, Kurnool,<br>Andhra Pradesh, 518002, India
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2026 Wormhole Technologies. All rights reserved.</p>
+            <p>
+                <a href="privacy-policy.html">Privacy Policy</a> · 
+                <a href="terms-conditions.html">Terms & Conditions</a> · 
+                <a href="account-deletion.html">Account Deletion</a>
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- Mouse Tracking Radial Glow Effect for Cards -->
+    <script>
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>

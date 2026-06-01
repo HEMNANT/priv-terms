@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — FarmGro</title>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --border: #2a2d3a;
+            --text: #e4e4e7;
+            --text-secondary: #9ca3af;
+            --accent: #22c55e;
+            --accent-dim: rgba(34, 197, 94, 0.1);
+            --warning: #f59e0b;
+            --warning-dim: rgba(245, 158, 11, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        header {
+            text-align: center;
+            padding: 48px 24px;
+            background: linear-gradient(135deg, #0d4a2a 0%, #0f1117 100%);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 48px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 28px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        ul, ol {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        li { margin-bottom: 6px; }
+
+        strong { color: var(--text); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 24px;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--surface);
+            color: var(--accent);
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+        }
+
+        td {
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:nth-child(even) td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .callout {
+            background: var(--accent-dim);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        .callout.warning {
+            background: var(--warning-dim);
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+
+        .callout strong {
+            color: var(--accent);
+        }
+
+        .callout.warning strong {
+            color: var(--warning);
+        }
+
+        code {
+            background: var(--surface);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.88rem;
+            color: var(--accent);
+        }
+
+        .permission-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 12px 0;
+        }
+
+        .permission-card h4 {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .permission-card .badge {
+            display: inline-block;
+            background: var(--accent-dim);
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+        }
+
+        .permission-card p {
+            font-size: 0.88rem;
+            margin-bottom: 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .back-nav {
+            max-width: 820px;
+            margin: 24px auto 0;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+            text-decoration: none;
+            transform: translateX(-4px);
+        }
+
+        .back-link svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 24px 16px 60px; }
+            header { padding: 32px 16px; }
+            header h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.2rem; }
+            table { font-size: 0.8rem; }
+            th, td { padding: 8px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="back-nav">
+    <a href="index.html" class="back-link">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Back to Portal
+    </a>
+</div>
+
+<header>
+    <h1>🌿 FarmGro</h1>
+    <p>Privacy Policy · Last Updated: May 29, 2026</p>
+</header>
+
+<div class="container">
+
+    <h2>1. Introduction</h2>
+    <p>Wormhole Technologies ("we," "us," or "our") operates the <strong>FarmGro</strong> mobile application (the "App"), a farmer-to-table agricultural marketplace platform that enables farmers to manage orders, list produce, track mandi (market) prices, and coordinate drop-offs at Village Collection Points (VCPs).</p>
+    <p>This Privacy Policy explains how we collect, use, disclose, and safeguard your personal information when you use our App. By installing or using the App, you agree to the terms of this Privacy Policy.</p>
+
+    <h2>2. Information We Collect</h2>
+
+    <h3>2.1 Personal Information You Provide</h3>
+    <table>
+        <tr><th>Data Type</th><th>When Collected</th><th>Purpose</th></tr>
+        <tr><td><strong>Phone Number</strong></td><td>Registration (OTP login)</td><td>Account creation and identity verification via Firebase SMS OTP</td></tr>
+        <tr><td><strong>Full Name</strong></td><td>Profile setup</td><td>Display your identity on orders and to buyers</td></tr>
+        <tr><td><strong>Village / Town</strong></td><td>Profile setup</td><td>Match you with relevant VCPs and local buyers</td></tr>
+        <tr><td><strong>District</strong></td><td>Profile setup</td><td>Geographic categorization for produce listings</td></tr>
+        <tr><td><strong>Profile Photo</strong></td><td>Profile setup (camera/gallery)</td><td>Visual identification on orders</td></tr>
+        <tr><td><strong>UPI ID</strong></td><td>Bank/payment setup</td><td>Process payment settlements for sold produce</td></tr>
+        <tr><td><strong>Language Preference</strong></td><td>Onboarding</td><td>Display the App in your preferred language</td></tr>
+        <tr><td><strong>Crop Selections</strong></td><td>Onboarding & produce management</td><td>Build your produce catalog for buyers</td></tr>
+    </table>
+
+    <h3>2.2 Information Collected Automatically</h3>
+    <table>
+        <tr><th>Data Type</th><th>How Collected</th><th>Purpose</th></tr>
+        <tr><td><strong>Device Location (GPS)</strong></td><td>VCP drop-off verification</td><td>Confirm physical presence at designated collection point</td></tr>
+        <tr><td><strong>FCM Token</strong></td><td>Automatically on app launch</td><td>Deliver real-time push notifications for new orders</td></tr>
+        <tr><td><strong>Device Info</strong></td><td>Firebase services</td><td>Performance monitoring, crash diagnostics, security</td></tr>
+    </table>
+
+    <div class="callout">
+        <strong>What We Do NOT Collect:</strong> We do not collect contacts, call logs, SMS content, browsing history, or audio/video recordings. We do not sell, rent, or trade your personal information.
+    </div>
+
+    <h2>3. Android Permissions</h2>
+    <p>Each permission is used for a specific, disclosed purpose:</p>
+
+    <div class="permission-card">
+        <span class="badge">LOCATION</span>
+        <h4>📍 ACCESS_FINE_LOCATION & ACCESS_COARSE_LOCATION</h4>
+        <p><strong>Why:</strong> To verify your physical presence at Village Collection Points (VCPs) before completing a produce drop-off.</p>
+        <p><strong>When:</strong> Only when you tap "Verify Location" on the VCP Drop-Off screen.</p>
+        <p><strong>Storage:</strong> Coordinates are used for real-time distance calculation only and are <strong>not stored</strong> on our servers.</p>
+    </div>
+
+    <div class="permission-card">
+        <span class="badge">CAMERA</span>
+        <h4>📷 CAMERA</h4>
+        <p><strong>Why:</strong> Profile photo capture during profile setup and onboarding.</p>
+        <p><strong>When:</strong> Only when you explicitly tap the camera icon to upload or change your profile picture.</p>
+        <p><strong>Storage:</strong> The selected profile photo is securely uploaded to Firebase Cloud Storage and is only used to identify your account.</p>
+    </div>
+
+    <div class="permission-card">
+        <span class="badge">NETWORK</span>
+        <h4>🌐 INTERNET</h4>
+        <p><strong>Why:</strong> Required for authentication, syncing orders/produce, push notifications, mandi prices, and Firebase services.</p>
+        <p><strong>When:</strong> Throughout app usage.</p>
+    </div>
+
+    <div class="permission-card">
+        <span class="badge">NOTIFICATIONS</span>
+        <h4>🔔 POST_NOTIFICATIONS</h4>
+        <p><strong>Why:</strong> Real-time alerts for new customer orders, order status changes, and system announcements.</p>
+        <p><strong>When:</strong> Permission requested on first launch (Android 13+). Can be disabled anytime.</p>
+    </div>
+
+    <div class="permission-card">
+        <span class="badge">DEVICE</span>
+        <h4>📳 VIBRATE</h4>
+        <p><strong>Why:</strong> Haptic feedback for new order notifications, ensuring orders aren't missed in noisy farm environments.</p>
+    </div>
+
+    <div class="permission-card">
+        <span class="badge">DISPLAY</span>
+        <h4>📲 USE_FULL_SCREEN_INTENT</h4>
+        <p><strong>Why:</strong> Display full-screen order alerts (like incoming call screens) when new orders arrive, even on locked screens.</p>
+    </div>
+
+    <div class="permission-card">
+        <span class="badge">SYSTEM</span>
+        <h4>🔄 RECEIVE_BOOT_COMPLETED</h4>
+        <p><strong>Why:</strong> Restart the notification system after device reboot so you continue receiving order alerts.</p>
+    </div>
+
+    <div class="permission-card">
+        <span class="badge">OVERLAY</span>
+        <h4>🪟 SYSTEM_ALERT_WINDOW</h4>
+        <p><strong>Why:</strong> Display urgent order alerts as overlay windows when the App is in the background, for time-critical orders.</p>
+    </div>
+
+    <h2>4. How We Use Your Information</h2>
+    <ol>
+        <li><strong>Account Management</strong> — Phone-based OTP authentication.</li>
+        <li><strong>Order Processing</strong> — Displaying, accepting/rejecting, and tracking orders.</li>
+        <li><strong>Payment Settlement</strong> — Using your UPI ID for payment transfers.</li>
+        <li><strong>Produce Management</strong> — Maintaining your crop catalog.</li>
+        <li><strong>VCP Verification</strong> — GPS and QR-based drop-off confirmation.</li>
+        <li><strong>Market Information</strong> — Providing current mandi rates for your crops.</li>
+        <li><strong>Notifications</strong> — Real-time order alerts.</li>
+        <li><strong>Security</strong> — Firebase App Check and Play Integrity attestation.</li>
+        <li><strong>Improvement</strong> — Anonymized usage analysis for better features.</li>
+    </ol>
+
+    <h2>5. Data Storage & Security</h2>
+
+    <table>
+        <tr><th>Service</th><th>Data Stored</th></tr>
+        <tr><td>Firebase Authentication</td><td>Phone number, user ID</td></tr>
+        <tr><td>Firebase Firestore</td><td>Profile, orders, produce, VCP data, payments, mandi prices</td></tr>
+        <tr><td>Firebase Cloud Storage</td><td>Profile photos, produce images</td></tr>
+        <tr><td>Firebase Cloud Messaging</td><td>Device FCM tokens</td></tr>
+    </table>
+
+    <h3>Security Measures</h3>
+    <ul>
+        <li><strong>TLS/SSL encryption</strong> for all data in transit</li>
+        <li><strong>Firebase Security Rules</strong> restricting data access to authenticated users</li>
+        <li><strong>Firebase App Check</strong> with Play Integrity attestation</li>
+        <li><strong>AES-256 encrypted local storage</strong> via EncryptedSharedPreferences</li>
+        <li><strong>Root/tamper detection</strong> to prevent unauthorized access</li>
+        <li><strong>Native C++ security layer</strong> for critical integrity checks</li>
+        <li><strong>No cloud backups</strong> — Auto-backup is disabled</li>
+    </ul>
+
+    <h2>6. Third-Party Services</h2>
+    <table>
+        <tr><th>Service</th><th>Purpose</th><th>Privacy Policy</th></tr>
+        <tr><td>Google Firebase</td><td>Auth, database, storage, messaging</td><td><a href="https://firebase.google.com/support/privacy" target="_blank">Link</a></td></tr>
+        <tr><td>Google Maps SDK</td><td>VCP location display</td><td><a href="https://policies.google.com/privacy" target="_blank">Link</a></td></tr>
+        <tr><td>Google Play Services</td><td>Location, Play Integrity</td><td><a href="https://policies.google.com/privacy" target="_blank">Link</a></td></tr>
+    </table>
+
+    <h2>7. Data Retention</h2>
+    <table>
+        <tr><th>Data Type</th><th>Retention Period</th></tr>
+        <tr><td>Account Data (name, phone, village, photo)</td><td>While account is active. Deleted within 30 days of deletion request.</td></tr>
+        <tr><td>Order Records</td><td>2 years (dispute resolution & audit)</td></tr>
+        <tr><td>Payment Records</td><td>2 years (financial compliance)</td></tr>
+        <tr><td>Produce Listings</td><td>While account is active</td></tr>
+        <tr><td>GPS Coordinates</td><td>Not stored — real-time verification only</td></tr>
+    </table>
+
+    <h2>8. Your Rights</h2>
+    <ul>
+        <li><strong>Access:</strong> View all your data within the App.</li>
+        <li><strong>Correction:</strong> Update your profile anytime in-app.</li>
+        <li><strong>Deletion & Account Removal:</strong> Request complete account deletion and data removal. You can request this in two ways:
+            <ul>
+                <li><strong>In-App:</strong> Go to Settings > Profile > Delete Account.</li>
+                <li><strong>Web-based Request:</strong> Submit an account deletion request online without the app by emailing us at <a href="mailto:support@wormhole.co.in">support@wormhole.co.in</a> or visiting our dedicated account removal request page at <a href="https://wormhole.co.in/account-deletion/" target="_blank">wormhole.co.in/account-deletion</a>.</li>
+            </ul>
+            All requests are processed and all personal and transactional database records are permanently deleted within 30 days.
+        </li>
+        <li><strong>Withdraw Consent:</strong> Revoke permissions via device Settings at any time.</li>
+        <li><strong>Opt-Out:</strong> Disable notifications via Android Settings.</li>
+    </ul>
+
+    <h2>9. Children's Privacy</h2>
+    <p>Our App is <strong>not intended for children under 18</strong>. It is a business tool for adult farmers. We do not knowingly collect data from children. If discovered, such data will be deleted immediately.</p>
+
+    <h2>10. Data Sharing</h2>
+    <div class="callout warning">
+        <strong>We do NOT sell, rent, or trade your personal information.</strong>
+    </div>
+    <p>Limited data may be shared only with:</p>
+    <ul>
+        <li><strong>Buyers</strong> — Your name and produce info for order fulfillment.</li>
+        <li><strong>VCP Operators</strong> — Drop-off status and bag labels for logistics.</li>
+        <li><strong>Service Providers</strong> — Google Firebase (under data processing agreements).</li>
+        <li><strong>Legal Requirements</strong> — If required by law or regulation.</li>
+    </ul>
+
+    <h2>11. International Transfers</h2>
+    <p>As we use Google Firebase, data may be processed outside India (including the US). Google complies with applicable data protection frameworks.</p>
+
+    <h2>12. Changes to This Policy</h2>
+    <p>We may update this policy periodically. Material changes will be communicated via the App or push notification. The "Last Updated" date will reflect the latest revision.</p>
+
+
+    <h2>13. Contact Us</h2>
+    <p>Questions or concerns? Contact us at:<br>
+    <strong>Email:</strong> [support@wormhole.co.in]<br>
+    <strong>Address:</strong> Ganesh Nagar 2, Kurnool,Andhra Pradesh,518002,India</p>
+
+</div>
+
+<footer>
+    <p>© 2026 Wormhole Technologies. All rights reserved.</p>
+    <p>Compliant with Google Play Store policies, India's IT Act 2000, and DPDP Act 2023.</p>
+</footer>
+
+</body>
+</html>

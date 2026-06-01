@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Deletion Request — FarmGro</title>
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0d13;
+            --bg-glow: rgba(239, 68, 68, 0.05);
+            --surface: #131622;
+            --border: #222638;
+            --text: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent: #ef4444; /* Red accent for deletion/destructive operations */
+            --accent-glow: rgba(239, 68, 68, 0.1);
+            --accent-hover: #f87171;
+            --success: #22c55e;
+            --success-glow: rgba(34, 197, 94, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Glowing Background Elements */
+        .ambient-glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--bg-glow) 0%, rgba(11,13,19,0) 70%);
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(80px);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Back Button */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            transition: color 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .back-link:hover {
+            color: #ffffff;
+        }
+
+        .back-link svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transform: rotate(180deg);
+            transition: transform 0.3s ease;
+        }
+
+        .back-link:hover svg {
+            transform: rotate(180deg) translateX(3px);
+        }
+
+        /* Card container */
+        .card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .header-icon {
+            width: 64px;
+            height: 64px;
+            background-color: var(--accent-glow);
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .card h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Alert Box */
+        .alert-box {
+            background-color: rgba(239, 68, 68, 0.03);
+            border: 1px solid rgba(239, 68, 68, 0.15);
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 28px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .alert-box strong {
+            color: var(--accent);
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: #0b0d13;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-family: inherit;
+            color: #ffffff;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.1);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        /* Checkbox Control */
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 24px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            display: none;
+        }
+
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background-color: #0b0d13;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-container input:checked + .custom-checkbox {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .custom-checkbox svg {
+            width: 12px;
+            height: 12px;
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .checkbox-container input:checked + .custom-checkbox svg {
+            opacity: 1;
+        }
+
+        .checkbox-text {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            background-color: var(--accent);
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        /* Success Screen */
+        .success-container {
+            display: none;
+            text-align: center;
+            animation: scaleUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .success-icon {
+            width: 72px;
+            height: 72px;
+            background-color: var(--success-glow);
+            border-radius: 50%;
+            color: var(--success);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin-bottom: 24px;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .success-container h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .success-container p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-done {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-done:hover {
+            border-color: #ffffff;
+            background-color: rgba(255,255,255,0.02);
+        }
+
+        /* Animations */
+        @keyframes scaleUp {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 30px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: auto;
+            border-top: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <div class="container">
+        <!-- Back navigation link -->
+        <a href="index.html" class="back-link">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Back to Portal</span>
+        </a>
+
+        <div class="card">
+            <!-- Active Request Form -->
+            <form id="deletion-form">
+                <div class="card-header">
+                    <div class="header-icon">🗑️</div>
+                    <h1>Account Deletion Request</h1>
+                    <p class="card-description">Submit a secure request to close your FarmGro profile.</p>
+                </div>
+
+                <div class="alert-box">
+                    ⚠️ <strong>Important Note:</strong> Deleting your account is permanent. All profile details, crop catalogs, and historical files in Firebase Firestore and Cloud Storage will be <strong>permanently purged within 30 days</strong>. Committed payouts will be finalized prior to deletion.
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="full-name">Full Name (as registered)</label>
+                    <input class="form-control" type="text" id="full-name" required placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="phone-number">Registered Phone Number</label>
+                    <input class="form-control" type="tel" id="phone-number" required placeholder="e.g. +91 98765 43210" pattern="^[+]?[0-9\s-]{10,15}$" title="Please enter a valid phone number with or without international code">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="reason">Reason for Deletion (Optional)</label>
+                    <select class="form-control" id="reason">
+                        <option value="">Select a reason</option>
+                        <option value="no-longer-needed">I am no longer selling agricultural produce</option>
+                        <option value="app-performance">Encountered technical issues with the app</option>
+                        <option value="privacy-concerns">Privacy or data-handling concerns</option>
+                        <option value="other">Other reasons</option>
+                    </select>
+                </div>
+
+                <label class="checkbox-container">
+                    <input type="checkbox" required id="confirm-check">
+                    <span class="custom-checkbox">
+                        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                    </span>
+                    <span class="checkbox-text">
+                        I confirm that I wish to permanently delete my FarmGro account and all associated operational records. I understand this action cannot be undone.
+                    </span>
+                </label>
+
+                <button class="btn-submit" type="submit">
+                    <span>Submit Deletion Request</span>
+                </button>
+            </form>
+
+            <!-- Success State (Hidden by default) -->
+            <div class="success-container" id="success-screen">
+                <div class="success-icon">✓</div>
+                <h2>Request Successfully Submitted</h2>
+                <p>
+                    Thank you. Your account deletion request has been registered under your phone number. Our compliance team will review and execute the request, purging all profile and database records within 30 days.<br>
+                    An confirmation alert will be sent once processing is complete.
+                </p>
+                <a href="index.html" class="btn-done">Return to Home</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 Wormhole Technologies. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Client-side Interactive Logic -->
+    <script>
+        const form = document.getElementById('deletion-form');
+        const successScreen = document.getElementById('success-screen');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect Form Data (in case the user wants to inspect)
+            const fullName = document.getElementById('full-name').value;
+            const phoneNumber = document.getElementById('phone-number').value;
+            const reason = document.getElementById('reason').value;
+
+            console.log("Deletion requested for:", { fullName, phoneNumber, reason });
+
+            // Beautiful Transition to Success State
+            form.style.animation = 'scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) reverse';
+            setTimeout(() => {
+                form.style.display = 'none';
+                successScreen.style.display = 'block';
+            }, 300);
+        });
+    </script>
+</body>
+</html>
