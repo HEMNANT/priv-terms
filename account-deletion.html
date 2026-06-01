@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Deletion Request — FarmGro</title>
+    <title>Delete Your Account — FarmGro</title>
     <!-- Google Fonts for Modern Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg: #0b0d13;
-            --bg-glow: rgba(239, 68, 68, 0.05);
+            --bg-glow: #0d2818;
+            /* Dark green glow for FarmGro */
+            --bg-glow-danger: rgba(239, 68, 68, 0.04);
             --surface: #131622;
+            --surface-hover: #1a1e2e;
             --border: #222638;
+            --border-hover: #2e354f;
             --text: #f3f4f6;
             --text-secondary: #9ca3af;
-            --accent: #ef4444; /* Red accent for deletion/destructive operations */
-            --accent-glow: rgba(239, 68, 68, 0.1);
-            --accent-hover: #f87171;
+            --accent-brand: #22c55e;
+            /* Green accent */
+            --accent-brand-glow: rgba(34, 197, 94, 0.15);
+            --accent-brand-hover: #4ade80;
+            --accent-danger: #ef4444;
+            /* Crimson for destructive action */
+            --accent-danger-glow: rgba(239, 68, 68, 0.12);
+            --accent-danger-hover: #f87171;
             --success: #22c55e;
-            --success-glow: rgba(34, 197, 94, 0.1);
+            --card-glow: rgba(34, 197, 94, 0.02);
         }
 
         * {
@@ -44,11 +56,11 @@
         /* Ambient Glowing Background Elements */
         .ambient-glow {
             position: absolute;
-            width: 500px;
-            height: 500px;
+            width: 700px;
+            height: 700px;
             border-radius: 50%;
-            background: radial-gradient(circle, var(--bg-glow) 0%, rgba(11,13,19,0) 70%);
-            top: -150px;
+            background: radial-gradient(circle, var(--bg-glow) 0%, rgba(11, 13, 19, 0) 70%);
+            top: -200px;
             left: 50%;
             transform: translateX(-50%);
             z-index: -1;
@@ -56,121 +68,341 @@
             filter: blur(80px);
         }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 60px 20px 80px;
-            width: 100%;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .ambient-glow-side {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--bg-glow-danger) 0%, rgba(11, 13, 19, 0) 70%);
+            bottom: 20%;
+            left: -100px;
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(60px);
         }
 
-        /* Back Button */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+            width: 100%;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Style */
+        .page-header {
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .logo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-link:hover {
+            opacity: 0.9;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #166534 0%, #22c55e 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.25);
+        }
+
         .back-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            margin-bottom: 30px;
-            transition: color 0.3s ease;
-            align-self: flex-start;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         .back-link:hover {
-            color: #ffffff;
+            color: var(--accent-brand);
+            transform: translateX(-3px);
         }
 
         .back-link svg {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             fill: none;
             stroke: currentColor;
-            stroke-width: 2;
+            stroke-width: 2.5;
             stroke-linecap: round;
             stroke-linejoin: round;
-            transform: rotate(180deg);
-            transition: transform 0.3s ease;
         }
 
-        .back-link:hover svg {
-            transform: rotate(180deg) translateX(3px);
+        /* Header Badges & Titles */
+        .title-badge {
+            display: inline-block;
+            background-color: var(--accent-danger-glow);
+            color: var(--accent-danger);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 6px 14px;
+            border-radius: 100px;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            margin-bottom: 16px;
         }
 
-        /* Card container */
+        .page-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .page-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+        }
+
+        /* Two Column Grid */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 32px;
+            margin-top: 40px;
+            align-items: start;
+        }
+
+        /* Cards Structure */
         .card {
             background-color: var(--surface);
             border: 1px solid var(--border);
             border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            padding: 36px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
-            width: 100%;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .card-header {
-            text-align: center;
-            margin-bottom: 32px;
+        .card:hover {
+            border-color: var(--border-hover);
         }
 
-        .header-icon {
-            width: 64px;
-            height: 64px;
-            background-color: var(--accent-glow);
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: var(--accent);
-            margin-bottom: 20px;
+        .card.card-danger {
+            border-left: 4px solid var(--accent-danger);
         }
 
-        .card h1 {
+        .card-title-group {
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: #ffffff;
-            margin-bottom: 8px;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .card-description {
+        .card h2 .icon {
+            font-size: 1.3rem;
+        }
+
+        .card-subtext {
             color: var(--text-secondary);
+            font-size: 0.88rem;
+            margin-top: 4px;
+        }
+
+        /* Important Notice Bullet List */
+        .notice-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .notice-list li {
+            position: relative;
+            padding-left: 28px;
             font-size: 0.95rem;
-        }
-
-        /* Alert Box */
-        .alert-box {
-            background-color: rgba(239, 68, 68, 0.03);
-            border: 1px solid rgba(239, 68, 68, 0.15);
-            border-radius: 16px;
-            padding: 16px 20px;
-            margin-bottom: 28px;
-            font-size: 0.9rem;
             color: var(--text-secondary);
+            line-height: 1.5;
         }
 
-        .alert-box strong {
-            color: var(--accent);
+        .notice-list li::before {
+            content: "✦";
+            position: absolute;
+            left: 2px;
+            top: 0;
+            color: var(--accent-danger);
+            font-weight: bold;
         }
 
-        /* Form Controls */
+        .notice-list li strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Step-by-Step UI */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 24px;
+            bottom: 24px;
+            width: 2px;
+            background-color: var(--border);
+            z-index: 0;
+        }
+
+        .timeline-step {
+            display: flex;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 16px;
+            background-color: #0b0d13;
+            border: 2px solid var(--border);
+            color: var(--accent-brand);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-step:hover .step-number {
+            border-color: var(--accent-brand);
+            background-color: var(--accent-brand-glow);
+            transform: scale(1.05);
+        }
+
+        .step-content {
+            padding-top: 4px;
+        }
+
+        .step-content h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .step-content p span.red-text {
+            color: var(--accent-danger);
+            font-weight: 600;
+        }
+
+        /* Identity Requirements Info Card */
+        .info-required-card {
+            background-color: rgba(255, 255, 255, 0.01);
+            border: 1px dashed var(--border);
+            border-radius: 18px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .info-required-card h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-required-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .info-req-item {
+            background: #0b0d13;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+
+        .info-req-item .title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--accent-brand);
+            margin-bottom: 2px;
+        }
+
+        .info-req-item .desc {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.3;
+        }
+
+        /* Deletion interactive form */
+        .deletion-form-container {
+            margin-top: 32px;
+        }
+
         .form-group {
             margin-bottom: 20px;
         }
 
         .form-label {
             display: block;
-            font-size: 0.88rem;
-            font-weight: 600;
+            font-size: 0.85rem;
+            font-weight: 700;
             color: #ffffff;
             margin-bottom: 8px;
+            letter-spacing: 0.02em;
         }
 
         .form-control {
@@ -178,17 +410,21 @@
             background-color: #0b0d13;
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 12px 16px;
+            padding: 14px 16px;
             font-family: inherit;
             color: #ffffff;
             font-size: 0.95rem;
             transition: all 0.3s ease;
         }
 
+        .form-control::placeholder {
+            color: #4b5563;
+        }
+
         .form-control:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.1);
+            border-color: var(--accent-danger);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
         }
 
         select.form-control {
@@ -200,25 +436,24 @@
             padding-right: 40px;
         }
 
-        /* Checkbox Control */
-        .checkbox-container {
+        /* Checkbox Layout */
+        .checkbox-label {
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            margin-top: 24px;
-            margin-bottom: 30px;
             cursor: pointer;
+            margin-bottom: 16px;
             user-select: none;
         }
 
-        .checkbox-container input {
+        .checkbox-label input {
             display: none;
         }
 
-        .custom-checkbox {
+        .checkbox-custom {
             width: 20px;
             height: 20px;
-            border: 1px solid var(--border);
+            border: 1.5px solid var(--border);
             border-radius: 6px;
             background-color: #0b0d13;
             flex-shrink: 0;
@@ -228,243 +463,1363 @@
             transition: all 0.2s ease;
         }
 
-        .checkbox-container input:checked + .custom-checkbox {
-            background-color: var(--accent);
-            border-color: var(--accent);
+        .checkbox-label input:checked+.checkbox-custom {
+            background-color: var(--accent-danger);
+            border-color: var(--accent-danger);
         }
 
-        .custom-checkbox svg {
+        .checkbox-custom svg {
             width: 12px;
             height: 12px;
-            fill: none;
             stroke: #ffffff;
-            stroke-width: 3;
+            stroke-width: 3.5;
+            fill: none;
             stroke-linecap: round;
             stroke-linejoin: round;
             opacity: 0;
-            transition: opacity 0.2s ease;
+            transition: opacity 0.15s ease;
         }
 
-        .checkbox-container input:checked + .custom-checkbox svg {
+        .checkbox-label input:checked+.checkbox-custom svg {
             opacity: 1;
         }
 
         .checkbox-text {
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
             line-height: 1.4;
         }
 
+        /* Confirm Input Text Box */
+        .confirm-word-box {
+            background: rgba(239, 68, 68, 0.02);
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            padding: 16px;
+            border-radius: 14px;
+            margin-bottom: 24px;
+        }
+
         /* Submit Button */
-        .btn-submit {
+        .btn-submit-danger {
             width: 100%;
-            background-color: var(--accent);
+            background-color: var(--accent-danger);
             color: #ffffff;
             border: none;
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 0.95rem;
+            border-radius: 14px;
+            padding: 16px;
+            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
         }
 
-        .btn-submit:hover {
-            background-color: var(--accent-hover);
+        .btn-submit-danger:hover:not(:disabled) {
+            background-color: var(--accent-danger-hover);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.35);
         }
 
-        .btn-submit:active {
+        .btn-submit-danger:active:not(:disabled) {
             transform: translateY(0);
         }
 
-        /* Success Screen */
-        .success-container {
-            display: none;
-            text-align: center;
-            animation: scaleUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        .btn-submit-danger:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            box-shadow: none;
         }
 
-        .success-icon {
-            width: 72px;
-            height: 72px;
-            background-color: var(--success-glow);
+        /* Success State screen styling */
+        .success-screen {
+            display: none;
+            text-align: center;
+            padding: 20px 10px;
+            animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .success-icon-badge {
+            width: 80px;
+            height: 80px;
+            background-color: var(--accent-brand-glow);
+            border: 1px solid rgba(34, 197, 94, 0.3);
             border-radius: 50%;
-            color: var(--success);
+            color: var(--accent-brand);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             margin-bottom: 24px;
-            border: 1px solid rgba(34, 197, 94, 0.2);
+            animation: pulseSuccess 2s infinite;
         }
 
-        .success-container h2 {
+        .success-screen h3 {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.6rem;
-            font-weight: 700;
+            font-size: 1.8rem;
+            font-weight: 800;
             color: #ffffff;
             margin-bottom: 12px;
         }
 
-        .success-container p {
+        .success-screen p {
             color: var(--text-secondary);
             font-size: 0.95rem;
+            max-width: 480px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .success-details {
+            background-color: #0b0d13;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto 30px;
+            text-align: left;
+        }
+
+        .success-detail-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .success-detail-row:last-child {
+            margin-bottom: 0;
+            border-top: 1px solid var(--border);
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
+        .success-detail-row .label {
+            color: var(--text-secondary);
+        }
+
+        .success-detail-row .value {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .success-detail-row .value.highlight {
+            color: var(--accent-brand);
+        }
+
+        .btn-brand-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--accent-brand);
+            color: #0b0d13;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-brand-primary:hover {
+            background-color: var(--accent-brand-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.45);
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulseSuccess {
+            0% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(34, 197, 94, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+            }
+        }
+
+        /* Help and Support Desk styling */
+        .support-card {
+            background: linear-gradient(135deg, #131622 0%, #0d2015 100%);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-card::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-color: var(--accent-brand-glow);
+            filter: blur(50px);
+            border-radius: 50%;
+            right: -50px;
+            bottom: -50px;
+            pointer-events: none;
+        }
+
+        .support-info h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .support-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            max-width: 580px;
+        }
+
+        .support-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
+        .btn-support-mail {
+            background-color: #0b0d13;
+            border: 1px solid var(--border);
+            color: #ffffff;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-support-mail:hover {
+            border-color: var(--accent-brand);
+            background-color: rgba(34, 197, 94, 0.05);
+        }
+
+        .btn-support-center {
+            background-color: var(--accent-brand);
+            border: none;
+            color: #0b0d13;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-support-center:hover {
+            background-color: var(--accent-brand-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Gorgeous App Promotion & Marketing Section ("Your Kitchen Deserves Better!") */
+        .promo-section {
+            margin-top: 50px;
+            background: radial-gradient(circle at top right, #0e2217, #131622 60%);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-content {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .promo-text-side h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff 50%, #a7f3d0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .promo-text-side p {
+            font-size: 1rem;
+            color: var(--text-secondary);
             margin-bottom: 30px;
             line-height: 1.6;
         }
 
-        .btn-done {
+        /* Sleek custom SVG Google Play badge */
+        .play-store-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background-color: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 12px 24px;
+            background-color: #000000;
+            border: 1.5px solid var(--border);
             border-radius: 12px;
-            font-size: 0.92rem;
-            font-weight: 600;
+            padding: 10px 18px;
+            gap: 12px;
             text-decoration: none;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .play-store-badge:hover {
+            border-color: var(--accent-brand);
+            background-color: #050608;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(34, 197, 94, 0.15);
+        }
+
+        .play-store-badge svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .play-store-badge .badge-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .play-store-badge .sub {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .play-store-badge .main {
+            font-size: 0.95rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+
+        /* HTML/CSS Mobile Mockups Showroom */
+        .mockup-showroom {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            position: relative;
+        }
+
+        .iphone-mockup {
+            width: 170px;
+            height: 340px;
+            background-color: #080a0f;
+            border: 5px solid #222638;
+            border-radius: 28px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.03);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .iphone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 12px;
+            background-color: #222638;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            z-index: 10;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 12px 10px 8px;
+            background-color: #0a0c14;
+            font-size: 0.6rem;
+            color: #ffffff;
+            justify-content: space-between;
+        }
+
+        /* Mockup Screens Layout Styles */
+        .mock-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 6px;
+            margin-top: 4px;
+        }
+
+        .mock-nav .title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 0.7rem;
+            color: var(--accent-brand);
+        }
+
+        .mock-nav .badge {
+            width: 14px;
+            height: 14px;
+            background-color: #1e293b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.4rem;
+        }
+
+        .mock-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            overflow: hidden;
+        }
+
+        .mock-card {
+            background-color: #131622;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 6px;
+        }
+
+        .mock-card.brand-glow {
+            border-color: rgba(34, 197, 94, 0.3);
+            background-color: rgba(34, 197, 94, 0.03);
+        }
+
+        .mock-card .card-title {
+            font-weight: 700;
+            font-size: 0.65rem;
+            margin-bottom: 2px;
+        }
+
+        .mock-card .card-row {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-size: 0.55rem;
+        }
+
+        .mock-card .card-tag {
+            background-color: var(--accent-brand-glow);
+            color: var(--accent-brand);
+            padding: 1px 4px;
+            border-radius: 4px;
+            font-size: 0.5rem;
+            display: inline-block;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        .mock-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .mock-grid-item {
+            background-color: #131622;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mock-grid-item .emoji {
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+        }
+
+        .mock-grid-item .name {
+            font-weight: 700;
+            font-size: 0.55rem;
+        }
+
+        .mock-grid-item .price {
+            color: var(--accent-brand);
+            font-weight: bold;
+            font-size: 0.5rem;
+        }
+
+        .mock-chart {
+            height: 35px;
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            padding: 4px 0;
+            border-bottom: 1.5px solid var(--border);
+            margin: 4px 0;
+        }
+
+        .mock-chart-bar {
+            flex-grow: 1;
+            background-color: var(--border);
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
             transition: all 0.3s ease;
         }
 
-        .btn-done:hover {
-            border-color: #ffffff;
-            background-color: rgba(255,255,255,0.02);
+        .mock-chart-bar.active {
+            background-color: var(--accent-brand);
         }
 
-        /* Animations */
-        @keyframes scaleUp {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+        .mock-circle-map {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 20%, transparent 60%);
+            border: 1px dashed rgba(34, 197, 94, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 4px;
+            position: relative;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding-top: 30px;
+        .mock-circle-map .pin {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-brand);
+            border-radius: 50%;
+            animation: pulseSuccess 1.5s infinite;
+        }
+
+        .mock-bottom-bar {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid var(--border);
+            padding-top: 4px;
+            margin-top: 4px;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.48rem;
+        }
+
+        .mock-bottom-bar span.active {
+            color: var(--accent-brand);
+            font-weight: bold;
+        }
+
+        /* Staggered showroom placement on large screens */
+        .iphone-mockup:nth-child(1) {
+            transform: translateY(15px);
+        }
+
+        .iphone-mockup:nth-child(2) {
+            transform: translateY(0px);
+            z-index: 2;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+            border-color: var(--border-hover);
+        }
+
+        .iphone-mockup:nth-child(3) {
+            transform: translateY(25px);
+        }
+
+        .iphone-mockup:hover {
+            transform: translateY(-5px) scale(1.03) !important;
+            border-color: var(--accent-brand);
+            z-index: 5;
+        }
+
+        /* Footer styling */
+        footer {
             margin-top: auto;
             border-top: 1px solid var(--border);
-            padding-bottom: 20px;
+            padding: 40px 0 30px;
         }
 
-        footer a {
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 1.15rem;
+        }
+
+        .footer-logo .logo-box {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            background: var(--accent-brand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: #0b0d13;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
         }
 
-        footer a:hover {
-            color: #ffffff;
+        .footer-links a:hover {
+            color: var(--accent-brand);
+        }
+
+        .footer-copyright {
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+            color: #4b5563;
+            font-size: 0.78rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            padding-top: 20px;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .layout-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .promo-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .promo-text-side {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .play-store-badge {
+                justify-content: center;
+            }
+
+            .mockup-showroom {
+                padding-bottom: 20px;
+            }
+
+            .iphone-mockup:nth-child(1),
+            .iphone-mockup:nth-child(2),
+            .iphone-mockup:nth-child(3) {
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px 16px 40px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .info-required-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .support-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 24px;
+            }
+
+            .support-actions {
+                flex-direction: column;
+                width: 100%;
+                gap: 12px;
+            }
+
+            .support-actions a {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .mockup-showroom {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding: 10px 0 20px;
+                scroll-snap-type: x mandatory;
+                width: 100%;
+            }
+
+            .iphone-mockup {
+                scroll-snap-align: center;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+                gap: 16px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <div class="ambient-glow"></div>
+    <div class="ambient-glow-side"></div>
 
     <div class="container">
-        <!-- Back navigation link -->
-        <a href="index.html" class="back-link">
-            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Back to Portal</span>
-        </a>
 
-        <div class="card">
-            <!-- Active Request Form -->
-            <form id="deletion-form">
-                <div class="card-header">
-                    <div class="header-icon">🗑️</div>
-                    <h1>Account Deletion Request</h1>
-                    <p class="card-description">Submit a secure request to close your FarmGro profile.</p>
-                </div>
-
-                <div class="alert-box">
-                    ⚠️ <strong>Important Note:</strong> Deleting your account is permanent. All profile details, crop catalogs, and historical files in Firebase Firestore and Cloud Storage will be <strong>permanently purged within 30 days</strong>. Committed payouts will be finalized prior to deletion.
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="full-name">Full Name (as registered)</label>
-                    <input class="form-control" type="text" id="full-name" required placeholder="Enter your full name">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="phone-number">Registered Phone Number</label>
-                    <input class="form-control" type="tel" id="phone-number" required placeholder="e.g. +91 98765 43210" pattern="^[+]?[0-9\s-]{10,15}$" title="Please enter a valid phone number with or without international code">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="reason">Reason for Deletion (Optional)</label>
-                    <select class="form-control" id="reason">
-                        <option value="">Select a reason</option>
-                        <option value="no-longer-needed">I am no longer selling agricultural produce</option>
-                        <option value="app-performance">Encountered technical issues with the app</option>
-                        <option value="privacy-concerns">Privacy or data-handling concerns</option>
-                        <option value="other">Other reasons</option>
-                    </select>
-                </div>
-
-                <label class="checkbox-container">
-                    <input type="checkbox" required id="confirm-check">
-                    <span class="custom-checkbox">
-                        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-                    </span>
-                    <span class="checkbox-text">
-                        I confirm that I wish to permanently delete my FarmGro account and all associated operational records. I understand this action cannot be undone.
-                    </span>
-                </label>
-
-                <button class="btn-submit" type="submit">
-                    <span>Submit Deletion Request</span>
-                </button>
-            </form>
-
-            <!-- Success State (Hidden by default) -->
-            <div class="success-container" id="success-screen">
-                <div class="success-icon">✓</div>
-                <h2>Request Successfully Submitted</h2>
-                <p>
-                    Thank you. Your account deletion request has been registered under your phone number. Our compliance team will review and execute the request, purging all profile and database records within 30 days.<br>
-                    An confirmation alert will be sent once processing is complete.
-                </p>
-                <a href="index.html" class="btn-done">Return to Home</a>
+        <!-- Navbar Header -->
+        <header class="page-header">
+            <a href="index.html" class="logo-link">
+                <div class="logo-icon">🌿</div>
+                <span>FarmGro</span>
+            </a>
+            <div style="margin-bottom: 12px;">
+                <a href="index.html" class="back-link">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2.5" />
+                    </svg>
+                    <span>Back to Support Portal</span>
+                </a>
             </div>
-        </div>
+            <span class="title-badge">Permanent Action</span>
+            <h1 class="page-title">Delete Your<br>FarmGro Account</h1>
+            <p class="page-subtitle">Follow the steps below to permanently delete your FarmGro account. This action is
+                final and cannot be undone.</p>
+        </header>
 
+        <!-- Main Workspace Grid -->
+        <main class="layout-grid">
+
+            <!-- Left Panel: Disclosures & Form Desk -->
+            <div class="card-stack" style="display: flex; flex-direction: column; gap: 32px;">
+
+                <!-- Disclosures / Important Notice -->
+                <section class="card card-danger">
+                    <div class="card-title-group">
+                        <h2>
+                            <span class="icon">⚠️</span>
+                            <span>Important Notice</span>
+                        </h2>
+                        <p class="card-subtext">Please read carefully before proceeding</p>
+                    </div>
+
+                    <ul class="notice-list">
+                        <li>
+                            Deleting your account is a <strong>permanent action</strong> and <strong>cannot be
+                                reversed</strong>.
+                        </li>
+                        <li>
+                            Your <strong>personal data</strong> (full name, mobile number, email address, delivery
+                            addresses) will be <strong>permanently removed</strong> from our active databases.
+                        </li>
+                        <li>
+                            Order history and transactional data may be retained for a limited period solely to comply
+                            with <strong>legal and tax obligations</strong> as per our Privacy Policy.
+                        </li>
+                        <li>
+                            You will <strong>lose access</strong> to your account, order history, and saved preferences
+                            within the App.
+                        </li>
+                        <li>
+                            Any <strong>pending orders or transactions</strong> must be completed before account
+                            deletion.
+                        </li>
+                        <li>
+                            This action is <strong>irreversible</strong> — once deleted, you will need to create a new
+                            account to use <strong>FarmGro</strong> again.
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Interactive Web-based Request Form -->
+                <section class="card" id="interactive-desk">
+                    <div class="card-title-group">
+                        <h2>
+                            <span class="icon">🔒</span>
+                            <span>Online Request Desk</span>
+                        </h2>
+                        <p class="card-subtext">Submit a secure request to close your profile without the app</p>
+                    </div>
+
+                    <!-- Input form -->
+                    <form id="secure-delete-form" class="deletion-form-container">
+
+                        <div class="form-group">
+                            <label class="form-label" for="web-fullname">Registered Full Name</label>
+                            <input type="text" class="form-control" id="web-fullname"
+                                placeholder="Enter your full name as in-app" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="web-phone">Registered Phone Number</label>
+                            <input type="tel" class="form-control" id="web-phone" placeholder="e.g. +91 98765 43210"
+                                pattern="^[+]?[0-9\s-]{10,15}$" required>
+                            <span
+                                style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 4px; display: block;">Must
+                                match the mobile number used to create your account.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="web-reason">Primary Reason for Deletion</label>
+                            <select class="form-control" id="web-reason" required>
+                                <option value="" disabled selected>Select a reason...</option>
+                                <option value="no-longer-needed">I no longer need farm-fresh deliveries</option>
+                                <option value="technical-issues">Encountered technical issues with the app</option>
+                                <option value="privacy-concerns">Privacy or data-handling concerns</option>
+                                <option value="better-alternative">Found a better alternative</option>
+                                <option value="other">Other reason</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="other-reason-group" style="display: none;">
+                            <label class="form-label" for="web-reason-other">Please specify</label>
+                            <input type="text" class="form-control" id="web-reason-other"
+                                placeholder="Tell us how we can improve">
+                        </div>
+
+                        <div class="confirm-word-box">
+                            <label class="form-label" for="web-confirm-text"
+                                style="color: var(--accent-danger);">Confirm by Typing "DELETE"</label>
+                            <input type="text" class="form-control" id="web-confirm-text"
+                                placeholder="Type DELETE in capital letters" required>
+                        </div>
+
+                        <!-- Checkboxes -->
+                        <div style="margin-bottom: 24px;">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="check-confirm-final" required>
+                                <span class="checkbox-custom">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M20 6L9 17l-5-5" stroke="currentColor" />
+                                    </svg>
+                                </span>
+                                <span class="checkbox-text">I confirm that I wish to permanently delete my FarmGro
+                                    account. I understand this action cannot be undone.</span>
+                            </label>
+
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="check-pending-final" required>
+                                <span class="checkbox-custom">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M20 6L9 17l-5-5" stroke="currentColor" />
+                                    </svg>
+                                </span>
+                                <span class="checkbox-text">I confirm that all pending orders and transactional
+                                    settlements have been completed.</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-submit-danger" id="submit-btn" disabled>
+                            <span>Delete My Account</span>
+                        </button>
+                    </form>
+
+                    <!-- Success State (Shown by script) -->
+                    <div class="success-screen" id="success-screen">
+                        <div class="success-icon-badge">✓</div>
+                        <h3>Deletion Request Received</h3>
+                        <p>Your secure identity verification request has been registered in our database. Our compliance
+                            and operations team will review the details shortly.</p>
+
+                        <div class="success-details">
+                            <div class="success-detail-row">
+                                <span class="label">Reference ID:</span>
+                                <span class="value" id="ref-id">FGR-DEL-98271</span>
+                            </div>
+                            <div class="success-detail-row">
+                                <span class="label">Identity Phone:</span>
+                                <span class="value" id="confirm-phone">+91 XXXXX XXXXX</span>
+                            </div>
+                            <div class="success-detail-row">
+                                <span class="label">Processing ETA:</span>
+                                <span class="value highlight">24 - 27 Hours</span>
+                            </div>
+                            <div class="success-detail-row">
+                                <span class="label">Status:</span>
+                                <span class="value" style="color: #f59e0b;">Awaiting Review</span>
+                            </div>
+                        </div>
+
+                        <p style="font-size: 0.85rem; margin-bottom: 24px;">An administrative SMS and email notification
+                            will be dispatched once the profile records have been permanently purged.</p>
+                        <a href="index.html" class="btn-brand-primary">Return to Support Portal</a>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Panel: Step-by-step Guide -->
+            <div class="sidebar-stack" style="display: flex; flex-direction: column; gap: 32px;">
+
+                <!-- Steps timeline card -->
+                <section class="card">
+                    <div class="card-title-group">
+                        <h2>
+                            <span class="icon">📱</span>
+                            <span>How to Delete in App</span>
+                        </h2>
+                        <p class="card-subtext">Follow these simple steps to remove your account inside the app</p>
+                    </div>
+
+                    <div class="timeline">
+                        <!-- Step 01 -->
+                        <div class="timeline-step">
+                            <div class="step-number">01</div>
+                            <div class="step-content">
+                                <h3>Open FarmGro App</h3>
+                                <p>Launch the <strong>FarmGro</strong> app on your mobile device and ensure you're
+                                    logged in to your account.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 02 -->
+                        <div class="timeline-step">
+                            <div class="step-number">02</div>
+                            <div class="step-content">
+                                <h3>Navigate to Profile</h3>
+                                <p>Tap on your <strong>profile icon</strong> located at the bottom navigation bar to
+                                    open your profile screen.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 03 -->
+                        <div class="timeline-step">
+                            <div class="step-number">03</div>
+                            <div class="step-content">
+                                <h3>Open Personal Information</h3>
+                                <p>In the Account Settings section, tap on <span class="red-text">'Personal Info'</span>
+                                    to access your personal information screen.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 04 -->
+                        <div class="timeline-step">
+                            <div class="step-number">04</div>
+                            <div class="step-content">
+                                <h3>Go to Account Actions</h3>
+                                <p>Scroll down to find the 'Account Actions' section and tap on <span
+                                        class="red-text">'Delete Account'</span> (displayed in red).</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 05 -->
+                        <div class="timeline-step">
+                            <div class="step-number">05</div>
+                            <div class="step-content">
+                                <h3>Review Warning & Continue</h3>
+                                <p>A warning dialog will appear showing what will be deleted. Review the information and
+                                    tap <strong>'Continue'</strong> to proceed.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 06 -->
+                        <div class="timeline-step">
+                            <div class="step-number">06</div>
+                            <div class="step-content">
+                                <h3>Confirm by Typing DELETE</h3>
+                                <p>Type <span class="red-text">'DELETE'</span> in the confirmation box, optionally
+                                    provide a reason, and tap <strong>'Delete My Account'</strong>. Your request will be
+                                    reviewed within 24-27 hours.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Information Required Verification section -->
+                    <div class="info-required-card">
+                        <h4>
+                            <svg style="width: 18px; height: 18px;" fill="none" stroke="var(--accent-brand)"
+                                stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                            <span>Information Required</span>
+                        </h4>
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">To successfully
+                            verify your identity and protect your account from unauthorized deletion requests:</p>
+
+                        <div class="info-required-grid">
+                            <div class="info-req-item">
+                                <div class="title">Registered Phone</div>
+                                <div class="desc">The exact mobile number used to register.</div>
+                            </div>
+                            <div class="info-req-item">
+                                <div class="title">Account Access</div>
+                                <div class="desc">You must hold valid access to your OTP credentials.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </main>
+
+        <!-- Help and Support Ticket Card -->
+        <section class="support-card">
+            <div class="support-info">
+                <h3>Need Help?</h3>
+                <p>We're here to assist you. If you're having trouble deleting your account or have any questions about
+                    the data deletion process, our local support desk is standing by.</p>
+            </div>
+            <div class="support-actions">
+                <a href="mailto:support@wormhole.co.in" class="btn-support-mail" id="support-email-btn">
+                    <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span>support@wormhole.co.in</span>
+                </a>
+                <a href="index.html#support" class="btn-support-center">Visit Support Center</a>
+            </div>
+        </section>
+
+        <!-- Premium Marketing Section ("Your Kitchen Deserves Better!") -->
+        <section class="promo-section">
+            <div class="promo-content">
+
+                <!-- Left promo info -->
+                <div class="promo-text-side">
+                    <h2>Your Kitchen Deserves Better!</h2>
+                    <p>Skip the crowded, hot markets! Get farm-fresh, premium veggies and delicious regional snacks
+                        delivered absolutely FREE for your first month. We handpick the finest produce directly from
+                        local Kurnool farms—so you can cook and eat with maximum confidence.</p>
+
+                    <a href="#" class="play-store-badge">
+                        <!-- Play store styled pure SVG -->
+                        <svg viewBox="0 0 512 512" fill="currentColor">
+                            <path
+                                d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 0 24 10 24 23v466c0 13 10 23 23 23 5.3 0 10.4-1.8 14.6-5.1L277 282.2l-230-282.2zm402.6 220.9l-61.9-35.5-62.1 62.1 62.1 62.1 61.9-35.5c15.6-8.9 25.4-25.7 25.4-44.1s-9.8-35.2-25.4-44.1zm-121.7 56.8L104.6 499l220.7-126.7-60-60.1z"
+                                fill="url(#play-grad)" />
+                            <defs>
+                                <linearGradient id="play-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#34a853" />
+                                    <stop offset="30%" stop-color="#fbbc05" />
+                                    <stop offset="70%" stop-color="#ea4335" />
+                                    <stop offset="100%" stop-color="#4285f4" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="badge-text">
+                            <span class="sub">Get it on</span>
+                            <span class="main">Google Play</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Right app mockups showroom (Pure HTML/CSS rendering) -->
+                <div class="mockup-showroom">
+
+                    <!-- Mockup 1: Store Catalog -->
+                    <div class="iphone-mockup">
+                        <div class="iphone-screen">
+                            <div class="mock-nav">
+                                <span class="title">🌿 FarmGro</span>
+                                <span class="badge">🛒</span>
+                            </div>
+
+                            <div class="mock-body">
+                                <div style="font-weight: 800; font-size: 0.55rem; color: #a7f3d0; margin-bottom: 2px;">
+                                    Fresh Kurnool Produce</div>
+
+                                <div class="mock-grid">
+                                    <div class="mock-grid-item">
+                                        <span class="emoji">🍅</span>
+                                        <span class="name">Tomatoes</span>
+                                        <span class="price">₹18/kg</span>
+                                    </div>
+                                    <div class="mock-grid-item">
+                                        <span class="emoji">🧅</span>
+                                        <span class="name">Onions</span>
+                                        <span class="price">₹24/kg</span>
+                                    </div>
+                                    <div class="mock-grid-item">
+                                        <span class="emoji">🥕</span>
+                                        <span class="name">Carrots</span>
+                                        <span class="price">₹35/kg</span>
+                                    </div>
+                                    <div class="mock-grid-item">
+                                        <span class="emoji">🥬</span>
+                                        <span class="name">Spinach</span>
+                                        <span class="price">₹15/bunch</span>
+                                    </div>
+                                </div>
+
+                                <div class="mock-card brand-glow" style="padding: 4px; margin-top: 2px;">
+                                    <div style="font-size: 0.5rem; font-weight: 700; color: var(--accent-brand);">FREE
+                                        First Month Delivery!</div>
+                                    <div style="font-size: 0.42rem; color: var(--text-secondary);">Applied on all farm
+                                        orders.</div>
+                                </div>
+                            </div>
+
+                            <div class="mock-bottom-bar">
+                                <span class="active">Shop</span>
+                                <span>Mandi</span>
+                                <span>VCP</span>
+                                <span>Profile</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mockup 2: Mandi Trends -->
+                    <div class="iphone-mockup">
+                        <div class="iphone-screen">
+                            <div class="mock-nav">
+                                <span class="title">📈 Mandi Rates</span>
+                                <span class="badge">🔔</span>
+                            </div>
+
+                            <div class="mock-body">
+                                <div class="mock-card">
+                                    <div class="card-title">Kurnool Mandi Price Index</div>
+                                    <div class="card-row">
+                                        <span>Onion (Grade A)</span>
+                                        <span style="color: var(--accent-brand);">₹2,400/Qtl</span>
+                                    </div>
+                                    <div class="mock-chart">
+                                        <div class="mock-chart-bar" style="height: 40%"></div>
+                                        <div class="mock-chart-bar" style="height: 60%"></div>
+                                        <div class="mock-chart-bar" style="height: 50%"></div>
+                                        <div class="mock-chart-bar" style="height: 80%"></div>
+                                        <div class="mock-chart-bar active" style="height: 95%"></div>
+                                    </div>
+                                    <div class="card-tag">📈 +12.4% Mandi Surge</div>
+                                </div>
+
+                                <div class="mock-card" style="margin-top: 2px;">
+                                    <div class="card-title">Market Recommendations</div>
+                                    <div style="font-size: 0.48rem; color: var(--text-secondary); line-height: 1.3;">
+                                        High demand detected for Kurnool chillies. Harvest drop-off advised.</div>
+                                </div>
+                            </div>
+
+                            <div class="mock-bottom-bar">
+                                <span>Shop</span>
+                                <span class="active">Mandi</span>
+                                <span>VCP</span>
+                                <span>Profile</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mockup 3: GPS Dropoff -->
+                    <div class="iphone-mockup">
+                        <div class="iphone-screen">
+                            <div class="mock-nav">
+                                <span class="title">📍 VCP Dropoff</span>
+                                <span class="badge">📡</span>
+                            </div>
+
+                            <div class="mock-body">
+                                <div class="mock-card brand-glow" style="text-align: center; padding: 10px 6px;">
+                                    <div class="mock-circle-map">
+                                        <div class="pin"></div>
+                                    </div>
+                                    <div style="font-weight: 700; font-size: 0.58rem; color: #ffffff;">VCP GPS Lock
+                                    </div>
+                                    <div
+                                        style="font-size: 0.48rem; color: var(--accent-brand); font-weight: 600; margin-top: 2px;">
+                                        Kurnool North VCP</div>
+                                    <div style="font-size: 0.42rem; color: var(--text-secondary); margin-top: 1px;">
+                                        Coordinates verified: 15.82° N, 78.03° E</div>
+                                </div>
+
+                                <div class="mock-card" style="margin-top: 2px;">
+                                    <div class="card-title">Pending Delivery Scan</div>
+                                    <div class="card-row">
+                                        <span>Order #FGR-7782</span>
+                                        <span>3 bags (150kg)</span>
+                                    </div>
+                                    <div
+                                        style="background-color: var(--accent-brand); color: #0b0d13; font-weight: bold; text-align: center; border-radius: 4px; padding: 2px; font-size: 0.48rem; margin-top: 4px;">
+                                        SCAN VCP QR CODE</div>
+                                </div>
+                            </div>
+
+                            <div class="mock-bottom-bar">
+                                <span>Shop</span>
+                                <span>Mandi</span>
+                                <span class="active">VCP</span>
+                                <span>Profile</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
         <footer>
-            <p>© 2026 Wormhole Technologies. All rights reserved.</p>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="footer-box">🌿</div>
+                    <span>FarmGro Portal</span>
+                </div>
+
+                <div class="footer-links">
+                    <a href="index.html#features">Features</a>
+                    <a href="index.html#how-it-works">How It Works</a>
+                    <a href="index.html#what-we-deliver">What We Deliver</a>
+                    <a href="index.html#faq">FAQ</a>
+                    <a href="terms-conditions.html">Terms & Conditions</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="index.html#support">Support</a>
+                </div>
+            </div>
+
+            <div class="footer-copyright">
+                <p>© 2026 FarmGro. All rights reserved.</p>
+                <p style="margin-top: 4px;">Built in accordance with strict Play Store developer data guidelines, India
+                    DPDP Act 2023, and IT regulatory safety frameworks.</p>
+            </div>
         </footer>
+
     </div>
 
-    <!-- Client-side Interactive Logic -->
+    <!-- Client-side Interactive Form Verification Script -->
     <script>
-        const form = document.getElementById('deletion-form');
-        const successScreen = document.getElementById('success-screen');
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('secure-delete-form');
+            const fullNameInput = document.getElementById('web-fullname');
+            const phoneInput = document.getElementById('web-phone');
+            const reasonSelect = document.getElementById('web-reason');
+            const reasonOtherGroup = document.getElementById('other-reason-group');
+            const reasonOtherInput = document.getElementById('web-reason-other');
+            const confirmTextInput = document.getElementById('web-confirm-text');
+            const confirmFinalCheck = document.getElementById('check-confirm-final');
+            const confirmPendingCheck = document.getElementById('check-pending-final');
+            const submitBtn = document.getElementById('submit-btn');
+            const successScreen = document.getElementById('success-screen');
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Collect Form Data (in case the user wants to inspect)
-            const fullName = document.getElementById('full-name').value;
-            const phoneNumber = document.getElementById('phone-number').value;
-            const reason = document.getElementById('reason').value;
+            // Toggle "Other" reason text field
+            reasonSelect.addEventListener('change', (e) => {
+                if (e.target.value === 'other') {
+                    reasonOtherGroup.style.display = 'block';
+                    reasonOtherInput.setAttribute('required', 'true');
+                } else {
+                    reasonOtherGroup.style.display = 'none';
+                    reasonOtherInput.removeAttribute('required');
+                }
+                validateForm();
+            });
 
-            console.log("Deletion requested for:", { fullName, phoneNumber, reason });
+            // Monitor all inputs to validate deletion conditions
+            const inputs = [fullNameInput, phoneInput, reasonSelect, reasonOtherInput, confirmTextInput, confirmFinalCheck, confirmPendingCheck];
+            inputs.forEach(input => {
+                input.addEventListener('input', validateForm);
+                input.addEventListener('change', validateForm);
+            });
 
-            // Beautiful Transition to Success State
-            form.style.animation = 'scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) reverse';
-            setTimeout(() => {
-                form.style.display = 'none';
-                successScreen.style.display = 'block';
-            }, 300);
+            function validateForm() {
+                const isFullNameValid = fullNameInput.value.trim().length > 2;
+                const isPhoneValid = phoneInput.value.trim().length >= 10;
+                const isReasonValid = reasonSelect.value !== '';
+                const isOtherReasonValid = reasonSelect.value !== 'other' || reasonOtherInput.value.trim().length > 2;
+                const isConfirmTextValid = confirmTextInput.value.trim() === 'DELETE';
+                const isCheckboxConfirmChecked = confirmFinalCheck.checked;
+                const isCheckboxPendingChecked = confirmPendingCheck.checked;
+
+                const formIsValid = isFullNameValid && isPhoneValid && isReasonValid && isOtherReasonValid && isConfirmTextValid && isCheckboxConfirmChecked && isCheckboxPendingChecked;
+
+                submitBtn.disabled = !formIsValid;
+            }
+
+            // Handle submission transitions
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Double check validity before moving forward
+                if (submitBtn.disabled) return;
+
+                // Collect phone info to populate success state
+                const userPhone = phoneInput.value.trim();
+                const sanitizedPhone = userPhone.substring(0, 3) + " " + "X".repeat(userPhone.length - 7) + " " + userPhone.substring(userPhone.length - 4);
+                document.getElementById('confirm-phone').innerText = userPhone;
+
+                // Generate random request reference ID
+                const randomRef = 'FGR-DEL-' + Math.floor(10000 + Math.random() * 90000);
+                document.getElementById('ref-id').innerText = randomRef;
+
+                // Beautiful CSS transition to success
+                form.style.animation = 'scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) reverse';
+                setTimeout(() => {
+                    form.style.display = 'none';
+
+                    // Update header title of form container card
+                    const cardTitle = document.querySelector('#interactive-desk .card-title-group h2 span:last-child');
+                    const cardSubtext = document.querySelector('#interactive-desk .card-title-group p');
+                    if (cardTitle) cardTitle.innerText = "Request Registered";
+                    if (cardSubtext) cardSubtext.innerText = "Your compliance record has been queued";
+
+                    successScreen.style.display = 'block';
+                }, 280);
+            });
         });
     </script>
 </body>
+
 </html>
